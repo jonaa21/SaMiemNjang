@@ -30,6 +30,8 @@ public class Graph {
             for(int k=0; k<MAX_VERTS; k++) // matrix
                 adjMat[j][k] = INFINITY; // to infinity
         sPath = new DistPar[MAX_VERTS]; // shortest paths
+        stack = new Stack();
+        queue = new Queue();
     }
 
     public void addEdge(int start, int end, int weight){
@@ -142,26 +144,6 @@ public class Graph {
         System.out.println(" ");
     }
 
-    public void bfs() {                                                 // begin at vertex 0
-        vertexList[0].wasVisited = true;                                // mark it
-        vertexList[0].vertexIndex = 1;
-        System.out.println(" ");
-        Queue queue = new Queue();
-        queue.insert(0);
-        int v2;
-        while (!queue.isEmpty()) {                                   // until queue empty,
-            int v1 = queue.remove();                                 // remove vertex at head
-            // until it has no unvisited neighbors
-            while ((v2 = getAdjUnvisitedVertex(v1)) != -1) {            // get one,
-                vertexList[v2].wasVisited = true;                       // mark it
-                vertexList[v2].vertexIndex = vertexList[v1].vertexIndex + 1;
-                queue.insert(v2);                                    // insert it
-            }                                                           // end while(unvisited neighbors)
-        }                                                               // end while(queue not empty)
-        for (int j = 0; j < nVerts; j++)
-            vertexList[j].wasVisited = false;
-    }
-
     public int getAdjUnvisitedVertex(int v) {
         for (int j = 0; j < nVerts; j++)
             if (adjMat[v][j] > 0 && vertexList[j].wasVisited == false && adjMat[v][j] < INFINITY)
@@ -169,25 +151,75 @@ public class Graph {
         return -1; // no such vertices
     }
 
-    public void dfs() {                                             // begin at vertex 0
-        vertexList[0].wasVisited = true;                            // mark it
-        displayVertex(0);                                        // display it
+    public Stack dfs(int j) {                                             // begin at vertex 0
+        vertexList[8].wasVisited = true;                            // mark it
+        //displayVertex(price);                                        // display it
         System.out.println(" ");
-        stack.push(0);                                        // push it
+        stack.push(8);                                        // push it
+
+        int foundItem = -1;
         while (!stack.isEmpty())                                 // until stack empty,
         {
             // get an unvisited vertex adjacent to stack top
             int v = getAdjUnvisitedVertex(stack.peek());
-            if (v == -1)                                            // if no such vertex,
-                stack.pop();                                     // pop a new one
+            if (v >= 0 && vertexList[v].food.getPrice() == j) {                                            // if no such vertex,
+                stack.push(v);
+                for(int i = 0; i <nVerts; i++){
+                    vertexList[i].wasVisited = false;
+                }
+                return stack;
+            }// pop a new one
+            else if(v == -1){
+                stack.pop();
+            }
             else                                                    // if it exists,
             {
                 vertexList[v].wasVisited = true;
-                displayVertex(v);                                   // display it
-                stack.push(v);                                   // push it
+                //displayVertex(v);                                   // display it
+                stack.push(v);                                  // push it
             }
         }
-        for (int j = 0; j < nVerts; j++)
+        for (int k = 0; k < nVerts; k++) {
+            vertexList[k].wasVisited = false;
+        }
+        return null;
+    }
+
+    public int priceCheck(int price){
+
+        bfs(7);
+        Stack stack = new Stack();
+        int i;
+        for(i = 0; i <nVerts; i++){
+                stack.push(i);
+                }
+        while (!stack.isEmpty()){
+            if(price == vertexList[i].food.getPrice()){
+                System.out.println("De prijs van dit gerecht bedraagt SRD: " + vertexList[i].food.getPrice());
+            }
+            stack.pop();
+        }
+        return vertexList[i].food.getPrice();
+    }
+
+    public void bfs(int start) // breadth-first search
+    { // begin at vertex 0
+        vertexList[start].wasVisited = true; // mark it
+        displayVertex(start); // display it
+        queue.insert(start); // insert at tail
+        int v2;
+        while (!queue.isEmpty()) // until queue empty,
+        {
+            int v1 = queue.remove(); // remove vertex at head
+            // until it has no unvisited neighbors
+            while ((v2 = getAdjUnvisitedVertex(v1)) != -1) { // get one,
+                vertexList[v2].wasVisited = true; // mark it
+                displayVertex(v2); // display it
+                queue.insert(v2); // insert it
+            } // end while
+        } // end while(queue not empty)
+        // queue is empty, so we’re done
+        for (int j = 0; j < nVerts; j++) // reset flags
             vertexList[j].wasVisited = false;
     }
 }
