@@ -56,6 +56,6 @@ public class App {
 
         //theGraph.bfs(0); //BFS
 
-        theGraph.priceCheck(30);
+        theGraph.priceCheck(130);
     }
 }

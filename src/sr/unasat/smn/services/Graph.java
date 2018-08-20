@@ -187,17 +187,17 @@ public class Graph {
 
     public int priceCheck(int price){
 
-        bfs(7);
+        bfs(1);
         Stack stack = new Stack();
         int i;
-        for(i = 0; i <nVerts; i++){
+        for(i = 0; i < nVerts; i++){
                 stack.push(i);
                 }
-        while (!stack.isEmpty()){
+        if (!stack.isEmpty()){
+            i = stack.pop();
             if(price == vertexList[i].food.getPrice()){
                 System.out.println("De prijs van dit gerecht bedraagt SRD: " + vertexList[i].food.getPrice());
             }
-            stack.pop();
         }
         return vertexList[i].food.getPrice();
     }
