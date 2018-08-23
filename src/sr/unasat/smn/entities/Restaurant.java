@@ -2,34 +2,13 @@ package sr.unasat.smn.entities;
 
 public class Restaurant {
 
-    private String name, location;
-    private int weigth;
-    private char label;
+    public String name;
+    public int weight;
+    public Category cat;
 
-/*    public Restaurant(String name, String location, int weigth) {
+    public Restaurant(String name, int weight) {
         this.name = name;
-        this.location = location;
-        this.weigth = weigth;
-    }*/
-
-    public Restaurant(String name){
-        this.name = name;
+        this.weight = weight;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public int getWeigth() {
-        return weigth;
-    }
-
-    @Override
-    public String toString(){
-        return getName();
-    }
 }

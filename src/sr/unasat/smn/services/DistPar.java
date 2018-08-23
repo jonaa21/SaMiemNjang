@@ -2,11 +2,11 @@ package sr.unasat.smn.services;
 
 public class DistPar {
 
-    public int distance;
+    public double weight;
     public int parentVert;
 
-    public DistPar(int pv, int d) {
-        distance = d;
+    public DistPar(int pv, double weight) {
+        this.weight = weight;
         parentVert = pv;
     }
 }

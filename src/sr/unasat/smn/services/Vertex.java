@@ -11,15 +11,15 @@ public class Vertex {
     Food food;
 
     public String name;
+    public double weight;
     public boolean isInTree;
     public boolean wasVisited;
-    public int vertexIndex;
 
-    public Vertex(String name){
+    public Vertex(String name, double weight){
         this.name = name;
+        this.weight = weight;
         isInTree = false;
         wasVisited = false;
-        vertexIndex = 0;
     }
 
     public Category getCategory() {

@@ -2,18 +2,11 @@ package sr.unasat.smn.entities;
 
 public class Category {
 
-    private String catName;
+    public String catName;
+    public int weight;
 
-    public Category(String catName) {
+    public Category(String catName, int w) {
         this.catName = catName;
-    }
-
-    public String getCatName() {
-        return catName;
-    }
-
-    @Override
-    public String toString(){
-        return getCatName();
+        weight = w;
     }
 }
